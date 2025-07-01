@@ -3,7 +3,7 @@
 
 ##telegraf##RUN touch /tmp/emptyfile
 
-FROM ghcr.io/sdr-enthusiasts/docker-baseimage:wreadsb
+FROM readsb:latest
 
 ENV BEASTPORT=30005 \
     GITPATH_TIMELAPSE1090=/opt/timelapse1090 \
