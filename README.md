@@ -478,7 +478,7 @@ Where the default value is "Unset", `readsb`'s default will be used.
 | Variable                      | Description                                                                                                                    | Controls which `readsb` option | Default |
 | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------------ | ------- |
 | `READSB_ENABLE_BIASTEE`       | Set to any value to enable bias tee on supporting interfaces                                                                   | `--enable-biastee`             | Unset   |
-| `READSB_RX_LOCATION_ACCURACY` | Accuracy of receiver location in metadata: 0=no location, 1=approximate, 2=exact                                               | `--rx-location-accuracy=<n>`   | `2`     |
+| `READSB_RX_LOCATION_ACCURACY` | Accuracy of receiver location: 0: no location / internal use only, 1: 2 decimals, 2: exact (default), 3: 1 decimals, 4: 0 decimals (remove location from heywhatsthat panorama unless set to exact)  | `--json-location-accuracy=<n>`   | `2`       |
 | `READSB_JSON_INTERVAL`        | Update interval for the webinterface in seconds / interval between aircraft.json writes                                        | `--write-json-every=<sec>`     | `1.0`   |
 | `READSB_JSON_TRACE_INTERVAL`  | Per plane interval for json position output and trace interval for globe history                                               | `--json-trace-interval=<sec>`  | `15`    |
 | `READSB_HEATMAP_INTERVAL`     | Per plane interval for heatmap and replay (if you want to lower this, also lower json-trace-interval to this or a lower value) | `--heatmap=<sec>`              | `15`    |
@@ -543,7 +543,7 @@ docker exec -it tar1090 /usr/local/bin/viewadsb --cpr-focus 3D3ED0
 | Variable                                     | Description                                                                                            | Default        |
 | -------------------------------------------- | ------------------------------------------------------------------------------------------------------ | -------------- |
 | `GRAPHS1090_DARKMODE`                        | If set to any value, `graphs1090` will be rendered in "dark mode".                                     | Unset          |
-| `GRAPHS1090_RRD_STEP`                        | Interval in seconds to feed data into RRD files.                                                       | `60`           |
+| `GRAPHS1090_RRD_STEP`                        | Interval in seconds to feed data into RRD files. (really don't touch this please)                      | `60`           |
 | `GRAPHS1090_SIZE`                            | Set graph size, possible values: `small`, `default`, `large`, `huge`, `custom`.                        | `custom`       |
 | `GRAPHS1090_ALL_LARGE`                       | Make the small graphs as large as the big ones by setting to `yes`.                                    | `no`           |
 | `GRAPHS1090_FONT_SIZE`                       | Font size (relative to graph size).                                                                    | `10.0`         |
@@ -552,6 +552,8 @@ docker exec -it tar1090 /usr/local/bin/viewadsb --cpr-focus 3D3ED0
 | `GRAPHS1090_LARGE_HEIGHT`                    | Defines the height of the larger graphs. (if size is set to custom)                                    | `235`          |
 | `GRAPHS1090_SMALL_WIDTH`                     | Defines the width of the smaller graphs. (if size is set to custom)                                    | `619`          |
 | `GRAPHS1090_SMALL_HEIGHT`                    | Defines the height of the smaller graphs. (if size is set to custom)                                   | `324`          |
+| `GRAPHS1090_RANGE_UNITS`                     | Units for range graph: nautical, statute or metric                                                     | `nautical`     |
+| `GRAPHS1090_TEMP_UNITS`                      | Units for temperature graph: celsius or fahrenheit                                                     | `celsius`      |
 | `GRAPHS1090_DISK_DEVICE`                     | Defines which disk device (`mmc0`, `sda`, `sdc`, etc) is shown. Leave empty for default device         | Unset          |
 | `GRAPHS1090_ETHERNET_DEVICE`                 | Defines which (wired) ethernet device (`eth0`, `enp0s`, etc) is shown. Leave empty for default device  | Unset          |
 | `GRAPHS1090_WIFI_DEVICE`                     | Defines which (wireless) WiFi device (`wlan0`, `wlp3s0`, etc) is shown. Leave empty for default device | Unset          |
@@ -569,6 +571,10 @@ docker exec -it tar1090 /usr/local/bin/viewadsb --cpr-focus 3D3ED0
 | `GRAPHS1090_DEFAULT_APPEND`                  | Append to /etc/default/graphs1090, see <https://github.com/wiedehopf/graphs1090/blob/master/default>   | Unset          |
 | `GRAPHS1090_CPU_TEMP`                        | container internal path to thermal zone with CPU temp. defaults to /sys/class/thermal/thermal_zone0/temp | Unset          |
 | `GRAPHS1090_OTHER_TEMP1`                     | container internal path to file that the user must update with temperature in C divided by 1000        | Unset          |
+| `GRAPHS1090_RANGE_INCLUDE_NONADSB`           | include non-ADSB positions in the range graph (HFDL, ADS-C, MLAT, TIS-B, Other)                        |  False          |
+| `ENABLE_AIRSPY`                              | Optional, set to any non-empty value if you want to enable the special AirSpy graphs. See below for additional configuration requirements | Unset          |
+| `URL_AIRSPY`                                 | Optional, set to the URL where the airspy stats are available, for example `http://airspy_adsb`                                           | Unset          |
+| `URL_1090_SIGNAL`                            | Optional. Retrieve gain and signal data from an URL where the readsb stats are available, i.e. `http://192.168.2.34/tar1090`              | Unset          |
 
 ### Enabling UAT data
 
