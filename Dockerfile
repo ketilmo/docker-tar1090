@@ -9,6 +9,7 @@ ENV BEASTPORT=30005 \
     GITPATH_TIMELAPSE1090=/opt/timelapse1090 \
     HTTP_ACCESS_LOG="false" \
     HTTP_ERROR_LOG="true" \
+    TAR1090_NGINX_PORT=80 \
     TAR1090_INSTALL_DIR=/usr/local/share/tar1090 \
     TAR1090_UPDATE_DIR=/var/globe_history/tar1090-update \
     MLATPORT=30105 \
@@ -31,7 +32,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # add telegraf binary
 ##telegraf##COPY --from=telegraf /usr/bin/telegraf /usr/bin/telegraf
-
+# hadolint ignore=SC2068
 RUN \
     --mount=type=bind,source=./,target=/app/ \
     set -x && \
