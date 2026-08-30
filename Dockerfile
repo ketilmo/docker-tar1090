@@ -25,6 +25,7 @@ ENV BEASTPORT=30005 \
     TIMELAPSE1090_HISTORY=24 \
     TIMELAPSE1090_CHUNK_SIZE=240 \
     GRAPHS1090_REDUCE_IO="false" \
+    GRAPHS1090_ETHERNET_DEVICE=eth0 \
     UPDATE_TAR1090="true" \
     PTRACKS=8
 
@@ -149,4 +150,4 @@ COPY rootfs/ /
 EXPOSE 80/tcp
 
 # Add healthcheck
-HEALTHCHECK --start-period=600s --interval=600s CMD /healthcheck.sh
+HEALTHCHECK --start-period=600s --interval=600s CMD ["/healthcheck.sh"]
